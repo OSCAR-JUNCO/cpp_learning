@@ -22,4 +22,7 @@ void in_place_merge_sort(vector<int>& vec);
 void helper_in_place_merge_sort(vector<int>& vec, int start, int end);
 void merge_in_place(vector<int>& vec, int start, int mid, int end);
 
+void quick_sort(vector<int>& nums);
+void helper_quick_sort(vector<int>& nums, int low, int high);
+
 #endif //PATTERNS_H 

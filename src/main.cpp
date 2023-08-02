@@ -10,14 +10,11 @@
 using namespace std;
 
 int main(){
-    string s1 = "Bonjour,";
-    string s2 = "mon ami!";
-    int i1 = 4;
-    int i2 = 8;
-    bool b1 = false;
-    bool b2 = false;
-    auto result = sum(s1, s2);
-    cout << result << endl;
+    vector<int> nums = {5, 3, 4, 1, 6, 2};
+    quick_sort(nums);
+    for (auto num : nums) cout << num << " ";
+    cout << endl;
+
 
     return 0;
 }

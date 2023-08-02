@@ -184,3 +184,41 @@ void merge_in_place(vector<int>& vec, int start, int mid, int end){
     }
     
 }
+
+void quick_sort(vector<int>& nums){
+    int low {0};
+    int high {nums.size()-1};
+    helper_quick_sort(nums, low, high);
+}
+
+void helper_quick_sort(vector<int>& nums, int low, int high){
+    // Base condition
+    if (low >= high) {
+        return;
+    }
+
+    int start {low};
+    int end {high};
+    int mid {low + (high-low)/2};
+    // Choosing pivot as mid element - least complexity
+    int pivot {nums[mid]};
+
+    while(start <= end){
+        while(nums[start] < pivot){
+            start++;
+        }
+        while(nums[end] > pivot){
+            end--;
+        }
+        if (start <= end) {
+            int temp {nums[start]};
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    // Recursive calls
+    helper_quick_sort(nums, low, end);
+    helper_quick_sort(nums, start, high);
+}
