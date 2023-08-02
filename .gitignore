@@ -1,0 +1,39 @@
+# Ignore build artifacts
+/build/
+
+# Ignore executable
+myprogram
+
+# Ignore compiled binaries or executables
+/bin/
+
+# Ignore temporary files
+*.o
+*.obj
+
+# Ignore any editor-specific files or directories (customize as needed)
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+*.suo
+*.user
+*.ncb
+*.db
+
+# Ignore any build-related files from specific build systems (e.g., CMake)
+CMakeFiles/
+CMakeCache.txt
+
+# Ignore generated documentation
+/docs/
+
+# Ignore any sensitive or environment-specific files (customize as needed)
+config.ini
+
+# Ignore large data files or cached data
+/data/
+
+# Ignore any dependencies or third-party libraries (if managed separately)
+/vendor/

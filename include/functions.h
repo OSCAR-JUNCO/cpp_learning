@@ -1,0 +1,28 @@
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
+
+#include <iostream>
+#include <vector>
+#include <map>
+#include <unordered_map>
+#include <numeric>
+#include <set>
+#include <stack>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> plusOne(vector<int>& digits);
+vector<vector<string>> groupAnagrams(vector<string>& strs);
+vector<int> anagramKey(string s);
+bool isAnagram(string s, string t);
+vector<int> spiralOrder(vector<vector<int>>& matrix);
+bool cmp(pair<int, int> pair_a, pair<int, int> pair_b);
+vector<int> topKFrequent(vector<int>& nums, int k);
+vector<int> productExceptSelf(vector<int>& nums);
+bool isValidSudoku(vector<vector<char>>& board);
+int longestConsecutive(vector<int>& nums);
+bool isValid(string s);
+int evalRPN(vector<string>& tokens);
+
+#endif
