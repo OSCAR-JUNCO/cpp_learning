@@ -68,7 +68,7 @@ void helper_sstin(string& up, const string p, string skip, string not_skip){
 }
 
 
-void print_subsets(string str){
+void print_subseqs(string str){
     helper_ps("", str);
 }
 void helper_ps(string p, string up){
@@ -83,7 +83,7 @@ void helper_ps(string p, string up){
 }
 
 
-vector<string> subsets(string str){
+vector<string> subseqs(string str){
     vector<string> ans;
     helper_s(ans, "", str);
     return ans;
@@ -97,4 +97,21 @@ void helper_s(vector<string>& ans, string p, string up){
     helper_s(ans, p+up[0], up.substr(1));
     // Ignore
     helper_s(ans, p, up.substr(1));
+}
+
+
+vector<string> subseqs_direct(string p, string up){
+    if (up.size() == 0) {
+        vector<string> processed;
+        processed.push_back(p);
+        return processed;
+    }
+    // Take
+    vector<string> left = subseqs_direct(p+up[0], up.substr(1));
+    // Ignore
+    vector<string> right = subseqs_direct(p, up.substr(1));
+
+    // Fusione the vectors and return
+    left.insert(left.end(), right.begin(), right.end());
+    return left;
 }

@@ -16,11 +16,13 @@ void helper_ss(string& up, const string p, string skip);
 string skip_string_that_is_not(const string str, string skip, string not_skip);
 void helper_sstin(string& up, const string p, string skip, string not_skip);
 
-void print_subsets(string str);
+void print_subseqs(string str);
 void helper_ps(string p, string up);
 
-vector<string> subsets(string str);
+vector<string> subseqs(string str);
 void helper_s(vector<string>& ans, string p, string up);
+
+vector<string> subseqs_direct(string p, string up);
 
 
 #endif // PR_UNPR_H

@@ -14,7 +14,7 @@ using namespace std;
 int main(){
 
     string str {"abc"};
-    vector<string> ans = subsets(str);
+    vector<string> ans = subseqs_direct("", str);
 
     for(auto subset: ans) cout << "'" <<  subset << "' ";
     cout << endl;
