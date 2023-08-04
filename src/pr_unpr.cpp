@@ -44,3 +44,23 @@ void helper_ss(string& up, string p, string skip) {
 	}
 
 }
+
+string skip_string_that_is_not(const string str, string skip, string not_skip){
+    string ans {""};
+    helper_sstin(ans, str, skip, not_skip);
+    return ans;
+}
+void helper_sstin(string& up, const string p, string skip, string not_skip){
+	// Base condition
+	if (p.size() == 0) {
+		return;
+	}
+
+	// Logic
+	if (p.substr(0, skip.size()) == skip && p.substr(0, not_skip.size()) != not_skip) {
+		helper_sstin(up, p.substr(skip.size()), skip, not_skip);
+	} else {
+		up += p[0];
+		helper_sstin(up, p.substr(1), skip, not_skip);
+	}
+}

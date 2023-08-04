@@ -12,9 +12,10 @@
 using namespace std;
 
 int main(){
-    string cris {"Cristian no es guapo"};
-    string skip {"no es"};
-    cout << skip_string(cris, skip) << endl; 
+    string cris {"bactodtodartodaycdah"};
+    string skip {"tod"};
+    string not_skip {"today"};
+    cout << skip_string_that_is_not(cris, skip, not_skip) << endl; 
 
     return 0;
 }
