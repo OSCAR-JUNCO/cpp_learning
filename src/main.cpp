@@ -12,8 +12,9 @@
 using namespace std;
 
 int main(){
-    string cris {"Cristian"};
-    cout << skip_char(cris, 'i') << endl; 
+    string cris {"Cristian no es guapo"};
+    string skip {"no es"};
+    cout << skip_string(cris, skip) << endl; 
 
     return 0;
 }

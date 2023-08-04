@@ -6,13 +6,11 @@
 
 using namespace std;
 
-extern string ans;
+string skip_char(const string str, char c);
+void helper_sc(string& up, const string p, char c);
 
-string skip_char(string str, char c);
-void helper_sc(string p, char c);
-
-//string skip_str(string str, string str_to_esc);
-//void helper_ss(string p, string up, string str_to_esc);
+string skip_string(const string str, string skip);
+void helper_ss(string& up, const string p, string skip);
 
 
 
