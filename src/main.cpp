@@ -14,7 +14,10 @@ using namespace std;
 int main(){
 
     string str {"abc"};
-    print_subsets(str);
+    vector<string> ans = subsets(str);
+
+    for(auto subset: ans) cout << "'" <<  subset << "' ";
+    cout << endl;
 
     return 0;
 }

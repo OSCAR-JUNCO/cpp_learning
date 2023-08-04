@@ -83,3 +83,18 @@ void helper_ps(string p, string up){
 }
 
 
+vector<string> subsets(string str){
+    vector<string> ans;
+    helper_s(ans, "", str);
+    return ans;
+}
+void helper_s(vector<string>& ans, string p, string up){
+    if (up.size() == 0) {
+        ans.push_back(p);
+        return;
+    }
+    // Take
+    helper_s(ans, p+up[0], up.substr(1));
+    // Ignore
+    helper_s(ans, p, up.substr(1));
+}
