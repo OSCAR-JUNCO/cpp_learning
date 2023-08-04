@@ -45,11 +45,13 @@ void helper_ss(string& up, string p, string skip) {
 
 }
 
+
 string skip_string_that_is_not(const string str, string skip, string not_skip){
     string ans {""};
     helper_sstin(ans, str, skip, not_skip);
     return ans;
 }
+
 void helper_sstin(string& up, const string p, string skip, string not_skip){
 	// Base condition
 	if (p.size() == 0) {
@@ -64,3 +66,20 @@ void helper_sstin(string& up, const string p, string skip, string not_skip){
 		helper_sstin(up, p.substr(1), skip, not_skip);
 	}
 }
+
+
+void print_subsets(string str){
+    helper_ps("", str);
+}
+void helper_ps(string p, string up){
+    if (up.size() == 0) {
+        cout << p << endl;
+        return;
+    }
+    // Take
+    helper_ps(p+up[0], up.substr(1));
+    // Ignore
+    helper_ps(p, up.substr(1));
+}
+
+
