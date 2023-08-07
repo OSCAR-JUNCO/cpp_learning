@@ -165,6 +165,7 @@ vector<vector<int>> subset_duplicate(vector<int>& nums){
 	return subsets;
 }
 
+// Permutations
 void print_permutations(string p, string up){
 	// Base condition
 	if (up.size() == 0){
@@ -182,3 +183,25 @@ void print_permutations(string p, string up){
 	}
 }
 
+vector<string> permutations(string p, string up){
+	// Base condition
+	if (up.size() == 0) {
+		vector<string> permutation = {};
+		permutation.push_back(p);
+		return permutation;
+	}
+
+	// Logic
+	vector<string> ans = {};
+	char ch = up[0];
+	for (size_t i = 0; i <= p.size(); i++)
+	{
+		string first = p.substr(0, i);
+		string end = p.substr(i, p.size());
+		// Recursive call
+		vector<string> single = permutations(first+ch+end, up.substr(1));
+		ans.insert(ans.end(), single.begin(), single.end());
+	}
+	return ans;
+	
+}

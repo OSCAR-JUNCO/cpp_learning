@@ -13,7 +13,8 @@ using namespace std;
 
 int main(){
 
-    print_permutations("", "abc");
+    vector<string> ans = permutations("", "abc");
+	for (auto p: ans) cout << p << endl;
 
     return 0;
 }
