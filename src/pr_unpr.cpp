@@ -164,3 +164,21 @@ vector<vector<int>> subset_duplicate(vector<int>& nums){
 
 	return subsets;
 }
+
+void print_permutations(string p, string up){
+	// Base condition
+	if (up.size() == 0){
+		cout << p << endl;
+		return;
+	}
+
+	char ch = up[0];
+	for (size_t i = 0; i <= p.size(); i++)
+	{
+		string first = p.substr(0, i);
+		string end = p.substr(i, p.size());
+		// Recursive call
+		print_permutations(first+ch+end, up.substr(1));
+	}
+}
+
