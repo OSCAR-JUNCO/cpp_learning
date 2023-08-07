@@ -14,6 +14,8 @@ using namespace std;
 int main(){
 
     vector<string> ans = permutations("", "abc");
+	int count = count_permutations("", "abc");
+	cout << count << " permutations!" << endl;
 	for (auto p: ans) cout << p << endl;
 
     return 0;

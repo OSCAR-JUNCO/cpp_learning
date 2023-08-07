@@ -205,3 +205,24 @@ vector<string> permutations(string p, string up){
 	return ans;
 	
 }
+
+int count_permutations(string p, string up) {
+	// Base case
+	if (up.size() == 0) {
+		return 1;
+	}
+
+	// Logic
+	int count = 0;
+	char ch = up[0];
+
+	for (size_t i = 0; i <= p.size(); i++)
+	{
+		string first = p.substr(0, i);
+		string end = p.substr(i, p.size());
+		count += count_permutations(first + ch + end, up.substr(1));
+	}
+	return count;
+	
+}
+

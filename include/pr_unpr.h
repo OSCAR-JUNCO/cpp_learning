@@ -31,5 +31,6 @@ vector<vector<int>> subset_duplicate(vector<int>& nums);
 // Permutations
 void print_permutations(string p, string up);
 vector<string> permutations(string p, string up);
+int count_permutations(string p, string up);
 
 #endif // PR_UNPR_H
