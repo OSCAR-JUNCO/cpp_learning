@@ -13,11 +13,16 @@ using namespace std;
 
 int main(){
 
-    string str {"abc"};
-    vector<string> ans = subseqs_direct("", str);
-
-    for(auto subset: ans) cout << "'" <<  subset << "' ";
-    cout << endl;
+    vector<int> nums {1, 2, 2};
+	vector<vector<int>> subsets = subset_duplicate(nums);
+	for (auto subset: subsets) {
+		cout << "[";
+		for (auto num: subset) {
+			cout << num;
+		}
+		cout << "] ";
+		cout << endl;
+	} 
 
     return 0;
 }

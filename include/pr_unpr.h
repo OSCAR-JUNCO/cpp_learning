@@ -24,5 +24,8 @@ void helper_s(vector<string>& ans, string p, string up);
 
 vector<string> subseqs_direct(string p, string up);
 
+vector<vector<int>> subset_iteration(const vector<int>& nums);
+
+vector<vector<int>> subset_duplicate(vector<int>& nums);
 
 #endif // PR_UNPR_H

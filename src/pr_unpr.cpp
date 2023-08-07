@@ -115,3 +115,52 @@ vector<string> subseqs_direct(string p, string up){
     left.insert(left.end(), right.begin(), right.end());
     return left;
 }
+
+
+vector<vector<int>> subset_iteration(const vector<int>& nums){
+	vector<vector<int>> subsets {};
+	vector<int> inner {};
+	subsets.push_back(inner);
+	for (auto num: nums) {
+		int subsets_size = (int)subsets.size();
+		for (int i = 0; i < subsets_size; ++i) {
+			vector<int> take {subsets[i]};
+			// Take the element, ignore by default
+			take.push_back(num);
+			subsets.push_back(take);
+		}
+	}
+
+	return subsets;
+}
+
+vector<vector<int>> subset_duplicate(vector<int>& nums){
+	std::sort(nums.begin(), nums.end());
+	vector<vector<int>> subsets {};
+	vector<int> first {};
+	subsets.push_back(first);
+	
+	int start = 0;
+	int end = 0;
+
+	for (int i = 0; i < (int) nums.size(); i++)
+	{
+		start = 0;
+		// If current and previous element are the same, s = e + 1
+		if (i > 0 && nums[i] == nums[i-1]){
+			start = end + 1;
+		}
+		end = subsets.size()-1;
+
+		int n = (int) subsets.size();
+		for (int j = start; j < n; j++)
+		{
+			vector<int> take {subsets[j]};
+			// Take the element, ignore by default
+			take.push_back(nums[i]);
+			subsets.push_back(take);
+		}
+	}
+
+	return subsets;
+}
