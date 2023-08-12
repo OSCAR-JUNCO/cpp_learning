@@ -8,15 +8,15 @@
 #include "templates.h"
 #include "sort.h"
 #include "pr_unpr.h"
+#include "binary_tree.h"
 
 using namespace std;
 
 int main(){
+	BinaryTree bt = BinaryTree();
+    bt.display();
 
-    vector<string> ans = permutations("", "abc");
-	int count = count_permutations("", "abc");
-	cout << count << " permutations!" << endl;
-	for (auto p: ans) cout << p << endl;
+    cout << "Done!" << endl;
 
     return 0;
 }
