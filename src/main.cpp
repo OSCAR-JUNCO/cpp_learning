@@ -9,14 +9,20 @@
 #include "sort.h"
 #include "pr_unpr.h"
 #include "binary_tree.h"
-
-using namespace std;
+#include "BST.h"
 
 int main(){
-	BinaryTree bt = BinaryTree();
-    bt.pretty_display();
+    vector<int> nums {5, 2, 7, 1, 4, 6, 9, 8, 3, 10 };
+    vector<int> numsSorted {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    cout << "Done!" << endl;
+	BST bst = BST();
+    bst.populateSorted(numsSorted);
+    bst.display();
+    std::cout << std::boolalpha << "Is empty: " << bst.isEmpty() << std::endl;
+    std::cout << std::boolalpha << "Is balanced: " << bst.balanced() << std::endl;
+    
+
+    std::cout << "Done!" << std::endl;
 
     return 0;
 }
