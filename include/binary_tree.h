@@ -24,6 +24,8 @@ public:
     void populate(Node* node);
     void display();
     void display(Node* node, std::string indent);
+    void pretty_display();
+    void pretty_display(Node* node, int level);
 
 private:
     Node* root;

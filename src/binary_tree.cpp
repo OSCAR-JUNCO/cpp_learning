@@ -58,6 +58,33 @@ void BinaryTree::display(Node* node, std::string indent){
     display(node->right, indent+"\t");
 }
 
+
+void BinaryTree::pretty_display(){
+    pretty_display(this->root, 0);
+}
+
+void BinaryTree::pretty_display(Node* node, int level){
+    if (node == nullptr) {
+        return;
+    }
+    
+    pretty_display(node->right, level+1);
+
+    if (level != 0) {
+        for (int i = 0; i < level-1; i++)
+        {
+            std::cout << "|\t";
+        }
+        std::cout << "|------>" << node->value << std::endl;
+        
+    } else {
+        std::cout << node->value << std::endl;
+    }
+
+    pretty_display(node->left, level+1);
+
+}
+
 // Node constructor
 BinaryTree::Node::Node(int value) {
     this->value = value;

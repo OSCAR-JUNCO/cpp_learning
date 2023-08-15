@@ -14,7 +14,7 @@ using namespace std;
 
 int main(){
 	BinaryTree bt = BinaryTree();
-    bt.display();
+    bt.pretty_display();
 
     cout << "Done!" << endl;
 
