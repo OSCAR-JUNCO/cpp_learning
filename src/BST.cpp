@@ -45,7 +45,6 @@ void BST::insert(int value) {
     root = insert(value, root);
 }
 
-
 BST::Node* BST::insert(int value, Node* node){
     if (node == nullptr) {
         node = new Node(value);
@@ -89,6 +88,54 @@ void BST::populateSorted(std::vector<int>& nums, int start, int end){
     populateSorted(nums, midd+1, end);
 
 }
+
+
+// Traversals
+void BST::preOrder(){
+    preOrder(root);
+    std::cout << "end" << std::endl;
+}
+
+void BST::preOrder(Node* node) {
+    if (node == nullptr){
+        return;
+    }
+
+    std::cout << node->getValue() << "->";
+    preOrder(node->getLeft());
+    preOrder(node->getRight());
+}
+
+void BST::inOrder(){
+    inOrder(root);
+    std::cout << "end" << std::endl;
+}
+
+void BST::inOrder(Node* node){
+    if (node == nullptr){
+        return;
+    }
+
+    inOrder(node->getLeft());
+    std::cout << node->getValue() << "->";
+    inOrder(node->getRight());
+}
+
+void BST::postOrder(){
+    postOrder(root);
+    std::cout << "end" << std::endl;
+}
+
+void BST::postOrder(Node* node){
+    if (node == nullptr){
+        return;
+    }
+
+    postOrder(node->getLeft());
+    postOrder(node->getRight());
+    std::cout << node->getValue() << "->";
+}
+
 
 // Node
 BST::Node::Node(int value) {

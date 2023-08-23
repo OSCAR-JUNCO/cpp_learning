@@ -20,6 +20,12 @@ int main(){
     bst.display();
     std::cout << std::boolalpha << "Is empty: " << bst.isEmpty() << std::endl;
     std::cout << std::boolalpha << "Is balanced: " << bst.balanced() << std::endl;
+    std::cout << "Pre-order traversal:  ";
+    bst.preOrder();
+    std::cout << "In-order traversal:   ";
+    bst.inOrder();
+    std::cout << "Post-order traversal: ";
+    bst.postOrder();
     
 
     std::cout << "Done!" << std::endl;

@@ -38,6 +38,14 @@ public:
     void populate(std::vector<int>& nums);
     void populateSorted(std::vector<int>& nums);
     void populateSorted(std::vector<int>& nums, int start, int end);
+    
+    // Traversal
+    void preOrder();
+    void preOrder(Node* node);
+    void inOrder();
+    void inOrder(Node* node);
+    void postOrder();
+    void postOrder(Node* node);
 
 private:
     Node* root;
