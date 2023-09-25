@@ -10,22 +10,23 @@
 #include "pr_unpr.h"
 #include "binary_tree.h"
 #include "AVL.h"
+#include "SegmentTree.h"
 
 int main(){
+    std::vector<int> a {3, 8, 6, 7, -2, -8, 4, 9};
 
-	AVL avl = AVL();
-    
-    for (int i = 0; i < 1000; i++)
-    {
-        avl.insert(i);
-    }
-    
+    SegmentTree ST(a);
+    std::cout << ST << endl;
 
-    std::cout << avl << std::endl;
-    std::cout << std::boolalpha << "Is empty: " << avl.isEmpty() << std::endl;
-    std::cout << std::boolalpha << "Is balanced: " << avl.balanced() << std::endl;
-    std::cout << "Height: " << avl.getHeight() << std::endl;
-    std::cout << "Done!" << std::endl;
+    int qsi = 1;
+    int qei = 6;
+    int acc = ST.query(qsi, qei);
+    std::cout << "The sum between the indexes [" << qsi << "-" << qei << "] is: " << acc << endl;
+
+    int index = 0;
+    int value = 20;
+    ST.update(index, value);
+    std::cout << "After updating the index " << index << " to " << value << " the sum is: " << ST.query(qsi, qei) << std::endl;
 
     return 0;
 }
