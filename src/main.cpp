@@ -13,19 +13,27 @@
 #include "SegmentTree.h"
 #include "graph.h"
 #include "leetcode.h"
+#include "graph.h"
 
 int main(){
-    std::string start = "toon";
-    std::string target = "plea";
-    set<string> D;
-    D.insert("poon");
-    D.insert("plee");
-    D.insert("same");
-    D.insert("poie");
-    D.insert("plie");
-    D.insert("poin");
-    D.insert("plea");
-    int count = shortestChainLen(start, target, D);
-    std::cout << "Going from '" << start << "' to '" << target << "' takes " << count << " steps." << std::endl;
+    Graph graph(9);
+    graph.addEdge(0,1);
+    graph.addEdge(0,2);
+    graph.addEdge(1,3);
+    graph.addEdge(1,4);
+    graph.addEdge(2,5);
+    graph.addEdge(4,6);
+    graph.addEdge(4,7);
+    graph.addEdge(4,8);
+    
+    // Printing graph
+    std::cout << graph;
+
+    int u = 4;
+    int v = 7;
+
+    std::string same = graph.same_path(u, v) ? " ARE " : " ARE NOT ";
+
+    std::cout << "The nodes " << u << " and " << v << same << "on the same path." << std::endl;
 
 }

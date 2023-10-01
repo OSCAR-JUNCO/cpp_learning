@@ -16,6 +16,11 @@ Graph::Graph(int vertices) {
         // Add the Adjacency List to the vector
         _adjList.push_back(list);
     }
+
+    // Help to define the inTime and outTime vectors
+    _timer = 0;
+    _inTime.resize(_V);
+    _outTime.resize(_V);
 }
 
 void Graph::addEdge(int u, int v) {
@@ -85,6 +90,10 @@ void Graph::DFS(int v){
 }
 
 void Graph::DFS_helper(int v, std::vector<bool>& visited){
+    // Increment the timer and assign inTime
+    ++_timer;
+    _inTime[v] = _timer;
+
     // Mark the current node as visited and print it
     visited[v] = true;
     std::cout << v << " ";
@@ -92,12 +101,16 @@ void Graph::DFS_helper(int v, std::vector<bool>& visited){
     Node* node = _adjList[v]->head;
     // Recur for all the vertices adjacent to this vertex
     while (node != nullptr) {
-        v = node->val;
-        if (!visited[v]) {
-            DFS_helper(v, visited);
+        int val = node->val;
+        if (!visited[val]) {
+            DFS_helper(val, visited);
         }
         node = node->next;
     }
+
+    // Increment the timer and assign outTime
+    ++_timer;
+    _outTime[v] = _timer;
 }
 
 
@@ -110,7 +123,7 @@ void Graph::topologicalSort() {
     std::vector<bool> visited(_V, false);
 
     // Call the recursive helper function to store Topological Sort starting from all vertices one by one
-    for (int i = 0; i < visited.size(); i++)
+    for (size_t i = 0; i < visited.size(); i++)
     {
         if (!visited[i]) {
             topologicalSort_helper(i, visited, ts_stack);
@@ -141,6 +154,12 @@ void Graph::topologicalSort_helper(int v, std::vector<bool>& visited, std::stack
 
     // Push current node in the stack which stores result
     ts_stack.push(v);
+}
+
+bool Graph::same_path(int u, int v) {
+    DFS(0);
+    return (_inTime[v] < _inTime[u] && _outTime[v] > _outTime[u]) || 
+           (_inTime[u] < _inTime[v] && _outTime[u] > _outTime[v]);
 }
 
 std::ostream& operator<<(std::ostream& os, const Graph& graph){

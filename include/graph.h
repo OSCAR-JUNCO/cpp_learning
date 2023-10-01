@@ -16,6 +16,10 @@ struct AdjList {
 };
 
 class Graph {
+    int _timer;
+    std::vector<int> _inTime;
+    std::vector<int> _outTime;
+
 public:
     int _V; // Number of vertices
     std::vector<AdjList*> _adjList; // Adjacency list
@@ -37,6 +41,9 @@ public:
 
     // Topological sort
     void topologicalSort();
+
+    // Check if two nodes are on the same path in a tree-like graph
+    bool same_path(int u, int v);
     
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
