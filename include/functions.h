@@ -9,6 +9,7 @@
 #include <set>
 #include <stack>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
 
@@ -24,5 +25,9 @@ bool isValidSudoku(vector<vector<char>>& board);
 int longestConsecutive(vector<int>& nums);
 bool isValid(string s);
 int evalRPN(vector<string>& tokens);
+
+// Graphs exercises 
+bool is_adjacent(std::string& first, std::string& second);
+int shortestChainLen(std::string& start, std::string& target, set<std::string>& D);
 
 #endif

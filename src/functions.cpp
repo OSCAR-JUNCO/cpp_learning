@@ -73,7 +73,7 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
     int i = 1, j = 0;
     int mov = 1;
     
-    for(size_t x = 0; x < size_res; ++x)
+    for(int x = 0; x < size_res; ++x)
     {
         res[x] = matrix[row][col];
         
@@ -151,7 +151,7 @@ vector<int> topKFrequent(vector<int>& nums, int k){
 vector<int> productExceptSelf(vector<int>& nums) {
     vector<int> result(nums.size(), 1);
     // Compute the prefix product
-    for(int i = 0; i < nums.size()-1; ++i){
+    for(size_t i = 0; i < nums.size()-1; ++i){
         result[i+1] = result[i] * nums[i];
     } 
 
@@ -187,9 +187,7 @@ int longestConsecutive(vector<int>& nums) {
         set<int> numsSet(begin(nums), end(nums));
         int max = 1, counter = 1;
 
-        set<int>::iterator it = next(numsSet.begin());
-
-        for(it; it != numsSet.end(); ++it)
+        for(set<int>::iterator it = next(numsSet.begin()); it != numsSet.end(); ++it)
         {
             cout << *it << " " << *prev(it) << " " << counter << endl;
             if(*it == *prev(it) + 1)
@@ -260,3 +258,54 @@ int evalRPN(vector<string>& tokens) {
     }
     return stack.top();
 }
+
+// Graphs exercises
+bool is_adjacent(std::string& first, std::string& second) {
+    int count = 0;
+    int n = first.length();
+
+    // Iterate through all the characters
+    for (int i = 0; i < n; i++) {
+        if (first[i] != second[i]) count++;
+        if (count > 1) return false;
+    }
+    return count == 1 ? true : false; 
+}
+
+int shortestChainLen(std::string& start, std::string& target, set<std::string>& D) {
+    stack<std::string> S;
+    S.push(start);
+    int count = 1;
+
+    // Go through all the words of the dictionary
+    while (!S.empty()) {
+        std::string current = S.top();
+        S.pop();
+
+        for (set<std::string>::iterator it = D.begin(); it != D.end(); it++) {
+            std::string temp = *it;
+
+            if (is_adjacent(current, temp)) {
+                // We reach a new adjacent word
+                current = temp;
+                S.push(current);
+
+                // Increase the count
+                count++;
+
+                // Delete the word from the dictionary to avoid infinite looping
+                D.erase(temp);
+
+
+                // If current is equal to the target, we have finished
+                if (current == target) {
+                    return count;
+                }
+                break;
+            }
+        }
+    }
+    return 0;
+    
+}
+

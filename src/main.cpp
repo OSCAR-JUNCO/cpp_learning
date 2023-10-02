@@ -15,11 +15,17 @@
 #include "leetcode.h"
 
 int main(){
-    int digit = 4;
-    std::vector<string> combinations = dice_combinations(digit);
+    std::string start = "toon";
+    std::string target = "plea";
+    set<string> D;
+    D.insert("poon");
+    D.insert("plee");
+    D.insert("same");
+    D.insert("poie");
+    D.insert("plie");
+    D.insert("poin");
+    D.insert("plea");
+    int count = shortestChainLen(start, target, D);
+    std::cout << "Going from '" << start << "' to '" << target << "' takes " << count << " steps." << std::endl;
 
-    for (auto combination: combinations) {
-        std::cout << combination << std::endl;
-    }
-    std::cout << std::endl;
 }
