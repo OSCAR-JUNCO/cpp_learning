@@ -15,12 +15,11 @@
 #include "leetcode.h"
 
 int main(){
-    std::string digits {"23"};
-    std::vector<std::string> combinations = letterCombinations(digits);
+    int digit = 4;
+    std::vector<string> combinations = dice_combinations(digit);
 
-    std::cout << "[";
-    for (auto comb: combinations) {
-        std::cout << "'" << comb << "'" << ", ";
+    for (auto combination: combinations) {
+        std::cout << combination << std::endl;
     }
-    std::cout << "]" << std::endl;
+    std::cout << std::endl;
 }

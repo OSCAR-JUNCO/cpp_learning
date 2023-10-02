@@ -226,3 +226,26 @@ int count_permutations(string p, string up) {
 	
 }
 
+
+std::vector<std::string> dice_combinations(int digit) {
+	std::vector<std::string> ans;
+	dice_combinations_helper(ans, "", digit);
+	return ans;
+}
+
+
+void dice_combinations_helper(std::vector<std::string>& ans, std::string processed, int unprocessed){
+	// Base condition
+	if (unprocessed == 0) {
+		ans.push_back(processed);
+		return;
+	}
+
+	// Logic
+	for (int i = 1; i <= unprocessed; i++)
+	{
+		processed.push_back(i);
+		dice_combinations_helper(ans, processed+::to_string(i), unprocessed-i);
+	}
+	
+}

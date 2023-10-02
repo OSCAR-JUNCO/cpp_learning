@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <numeric>
 
 using namespace std;
 
@@ -32,5 +33,10 @@ vector<vector<int>> subset_duplicate(vector<int>& nums);
 void print_permutations(string p, string up);
 vector<string> permutations(string p, string up);
 int count_permutations(string p, string up);
+
+// Dice combinations
+std::vector<std::string> dice_combinations(int digit);
+void dice_combinations_helper(std::vector<std::string>& ans, std::string processed, int unprocessed);
+
 
 #endif // PR_UNPR_H
