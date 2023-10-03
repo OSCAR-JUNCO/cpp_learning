@@ -209,6 +209,56 @@ void Graph::printAdjMatrix() {
 }
 
 
+
+void Graph::updateAdjMatrix() {
+    // Cleaning the Adjacency Matrix
+    for (int i = 0; i < _V; ++i) {
+        for (int j = 0; j < _V; ++i) {
+            _adjMatrix[i][j] = 0;
+        }
+    }
+
+    // Updating the Adjacency Matrix from the Adjacency List
+    for (int i = 0; i < _V; ++i) {
+        AdjList* adjList = _adjList[i];
+        Node* node = adjList->head;
+        while (node != nullptr) {
+            node = node->next;
+            _adjMatrix[i][node->val] = 1;
+        }
+    } 
+}
+void Graph::updateAdjList() {
+    // Cleaning the Adjacency List
+    for (int i = 0; i < _V; ++i) {
+        Node* head = _adjList[0]->head;
+        Node* node = head->next;
+        while (node != nullptr) {
+            Node* temp = node;
+            node = node->next;
+            delete temp;
+        }
+    }
+
+    // Updating the Adjacency List from the Adjacency Matrix
+    for (int i = 0; i < _V; ++i) {
+        Node* head = _adjList[i]->head;
+        for (int j = 0; i < _V; ++i) {
+            if (_adjMatrix[i][j] == 1) {
+                Node* newNode = new Node;
+                newNode->val = j;
+                newNode->next = nullptr;
+
+                Node* node = head->next;
+                while (node != nullptr) {
+                    node = node->next;
+                }
+                node = newNode;
+            }
+        }
+    } 
+}
+
 std::ostream& operator<<(std::ostream& os, const Graph& graph){
     os << "Graph with " << graph._V << " vertices:" << std::endl;
     for (auto& list: graph._adjList) {

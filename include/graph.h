@@ -55,6 +55,8 @@ public:
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
     void topologicalSort_helper(int v, std::vector<bool>& visited, std::stack<int>& ts_stack);
+    void updateAdjMatrix();
+    void updateAdjList();
 
 };
 
