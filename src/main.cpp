@@ -16,24 +16,20 @@
 #include "graph.h"
 
 int main(){
-    Graph graph(9);
+    Graph graph(6);
     graph.addEdge(0,1);
-    graph.addEdge(0,2);
-    graph.addEdge(1,3);
+    graph.addEdgeUndirected(0,2);
+    graph.addEdgeUndirected(0,3);
+    graph.addEdge(0,5);
+    graph.addEdge(1,2);
     graph.addEdge(1,4);
-    graph.addEdge(2,5);
-    graph.addEdge(4,6);
-    graph.addEdge(4,7);
-    graph.addEdge(4,8);
+    graph.addEdge(2,3);
+    graph.addEdge(2,4);
+    graph.addEdge(3,4);
+    graph.addEdgeUndirected(4,5);
     
     // Printing graph
-    std::cout << graph;
+    graph.printAdjMatrix();
 
-    int u = 4;
-    int v = 7;
-
-    std::string same = graph.same_path(u, v) ? " ARE " : " ARE NOT ";
-
-    std::cout << "The nodes " << u << " and " << v << same << "on the same path." << std::endl;
 
 }

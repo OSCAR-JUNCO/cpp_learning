@@ -20,9 +20,13 @@ class Graph {
     std::vector<int> _inTime;
     std::vector<int> _outTime;
 
+    // Store topological sort
+    std::vector<int> _topologicalSort;
+
 public:
     int _V; // Number of vertices
     std::vector<AdjList*> _adjList; // Adjacency list
+    std::vector<std::vector<int>> _adjMatrix;
 
     // Constructor
     Graph (int vertices);
@@ -44,6 +48,9 @@ public:
 
     // Check if two nodes are on the same path in a tree-like graph
     bool same_path(int u, int v);
+
+    // Print Adjacency Matrix
+    void printAdjMatrix();
     
 private:
     void DFS_helper(int v, std::vector<bool>& visited);

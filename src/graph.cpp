@@ -2,8 +2,20 @@
 
 Graph::Graph(int vertices) {
     _V = vertices;
+
+    // Help to define the inTime and outTime vectors
+    _timer = 0;
+    _inTime.resize(_V);
+    _outTime.resize(_V);
+
+    // Define the number of rows of the Adjacency Matrix
+    _adjMatrix.resize(_V);
+
     for (int i = 0; i < vertices; i++)
     {
+        // Define the number of columns of the Adjacency Matrix
+        _adjMatrix[i].resize(_V, 0);
+        
         // Create the head node
         Node* head = new Node;
         head->val = i;
@@ -17,10 +29,9 @@ Graph::Graph(int vertices) {
         _adjList.push_back(list);
     }
 
-    // Help to define the inTime and outTime vectors
-    _timer = 0;
-    _inTime.resize(_V);
-    _outTime.resize(_V);
+
+    // Define the size of the topological sort vector
+    _topologicalSort.resize(_V);
 }
 
 void Graph::addEdge(int u, int v) {
@@ -34,6 +45,8 @@ void Graph::addEdge(int u, int v) {
         node = node->next;
     }
     node->next = newNode;
+
+    _adjMatrix[u][v] = 1;
 }
 
 
@@ -130,9 +143,16 @@ void Graph::topologicalSort() {
         }
     }
 
-    // Print contents of the stack
+    // Print and store contents of the stack
+    int i = 0;
     while (!ts_stack.empty()) {
-        std::cout << ts_stack.top() << " ";
+
+        int val = ts_stack.top();
+        std::cout << val << " ";
+
+        // Store contents of the stack
+        _topologicalSort[i++] = val;
+
         ts_stack.pop();
     }
     std::cout << std::endl;
@@ -161,6 +181,33 @@ bool Graph::same_path(int u, int v) {
     return (_inTime[v] < _inTime[u] && _outTime[v] > _outTime[u]) || 
            (_inTime[u] < _inTime[v] && _outTime[u] > _outTime[v]);
 }
+
+
+void Graph::printAdjMatrix() {
+    std::cout << "Adjacency Matrix: " << std::endl;
+
+    std::cout << "   ";
+    for (int i = 0; i < _V; ++i) {
+        std::cout << i << "|";
+    }
+    std::cout << std::endl;
+    int total_char = _V*2+3;
+    for (int i = 0; i < total_char; ++i) {
+        std::cout << "_";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < _V; ++i) {
+        std::cout << i << "| ";
+        for (int j = 0; j < _V; ++j) {
+            char val = '1';
+            if (_adjMatrix[i][j] == 0) val = ' ';
+            std::cout << val << "|";
+        }
+        std::cout << std::endl;
+    }
+}
+
 
 std::ostream& operator<<(std::ostream& os, const Graph& graph){
     os << "Graph with " << graph._V << " vertices:" << std::endl;

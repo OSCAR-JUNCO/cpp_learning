@@ -1,8 +1,8 @@
 # Ignore build artifacts
 /build/
-/src/debug
 
 # Ignore executable
+/debug
 myprogram
 
 # Ignore compiled binaries or executables
