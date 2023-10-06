@@ -51,6 +51,9 @@ public:
 
     // Print Adjacency Matrix
     void printAdjMatrix();
+
+    // Assign directions to undirected edges so that the directed graph remains acyclic
+    void assignDirections();
     
 private:
     void DFS_helper(int v, std::vector<bool>& visited);

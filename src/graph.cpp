@@ -136,7 +136,7 @@ void Graph::topologicalSort() {
     std::vector<bool> visited(_V, false);
 
     // Call the recursive helper function to store Topological Sort starting from all vertices one by one
-    for (size_t i = 0; i < visited.size(); i++)
+    for (int i = 0; i < _V; i++)
     {
         if (!visited[i]) {
             topologicalSort_helper(i, visited, ts_stack);
@@ -163,7 +163,8 @@ void Graph::topologicalSort_helper(int v, std::vector<bool>& visited, std::stack
     // Mark the node as visited
     visited[v] = true;
 
-    Node* node = _adjList[v]->head;
+    Node* head = _adjList[v]->head;
+    Node* node = head->next;
     while (node != nullptr) {
         int val = node->val;
         if (!visited[val]) {
@@ -198,7 +199,7 @@ void Graph::printAdjMatrix() {
     std::cout << std::endl;
 
     for (int i = 0; i < _V; ++i) {
-        std::cout << i << "| ";
+        std::cout << i << " |";
         for (int j = 0; j < _V; ++j) {
             char val = '1';
             if (_adjMatrix[i][j] == 0) val = ' ';
@@ -208,7 +209,51 @@ void Graph::printAdjMatrix() {
     }
 }
 
+void Graph::assignDirections() {
+    // Perform topological sort on the graph considering only the directed edges
+    std::vector<std::vector<int>> adjMatrix_temp = _adjMatrix;
+    for (int i = 0; i < _V; ++i) {
+        for (int j = 0; j < _V; ++j) {
+            // The edge is undirected
+            if (_adjMatrix[i][j] == 1 && _adjMatrix[j][i] == 1) {
+                // Remove undirected edge
+                _adjMatrix[i][j] = 0;
+                _adjMatrix[j][i] = 0;
+            }
+        }
+    }
+    updateAdjList();
+    topologicalSort();
 
+    // Find the undirected edges by iterating through the previously stored Adjacency Matrix
+    for (int i = 0; i < _V; ++i) {
+        for (int j = 0; j < _V; ++j) {
+            // The edge is undirected
+            if (adjMatrix_temp[i][j] == 1 && adjMatrix_temp[j][i] == 1) {
+                // Find the position of the i node in the topological sort
+                auto pos_u = std::find(_topologicalSort.begin(), _topologicalSort.end(), i);
+                // Find the position of the j node in the topological sort
+                auto pos_v = std::find(_topologicalSort.begin(), _topologicalSort.end(), j);
+
+                // Assign direction
+                if (pos_u < pos_v) {
+                    adjMatrix_temp[j][i] = 0;
+                } else {
+                    adjMatrix_temp[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    // Update the Adjacency Matrix
+    _adjMatrix = adjMatrix_temp;
+
+    // Update the Adjacency List
+    updateAdjList();
+
+    // Messages
+    std::cout << "Directions assigned!" << std::endl;
+}
 
 void Graph::updateAdjMatrix() {
     // Cleaning the Adjacency Matrix
@@ -228,33 +273,39 @@ void Graph::updateAdjMatrix() {
         }
     } 
 }
+
 void Graph::updateAdjList() {
     // Cleaning the Adjacency List
     for (int i = 0; i < _V; ++i) {
         Node* head = _adjList[0]->head;
-        Node* node = head->next;
-        while (node != nullptr) {
-            Node* temp = node;
-            node = node->next;
-            delete temp;
+        while(head){
+            Node* temp = head;
+            head = head->next;
+            delete temp; // Deallocate memory
         }
+
+        _adjList[i]->head = nullptr;
     }
 
     // Updating the Adjacency List from the Adjacency Matrix
     for (int i = 0; i < _V; ++i) {
-        Node* head = _adjList[i]->head;
-        for (int j = 0; i < _V; ++i) {
+        Node* head = new Node;
+        head->val = i;
+        head->next = nullptr;
+
+        for (int j = 0; j < _V; ++j) {
             if (_adjMatrix[i][j] == 1) {
                 Node* newNode = new Node;
                 newNode->val = j;
                 newNode->next = nullptr;
 
-                Node* node = head->next;
-                while (node != nullptr) {
+                Node* node = head;
+                while (node->next != nullptr) {
                     node = node->next;
                 }
-                node = newNode;
+                node->next = newNode;
             }
+            _adjList[i]->head = head;
         }
     } 
 }

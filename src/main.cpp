@@ -22,14 +22,20 @@ int main(){
     graph.addEdgeUndirected(0,3);
     graph.addEdge(0,5);
     graph.addEdge(1,2);
+    graph.addEdge(1,3);
     graph.addEdge(1,4);
     graph.addEdge(2,3);
     graph.addEdge(2,4);
     graph.addEdge(3,4);
+    graph.addEdge(5,1);
+    graph.addEdge(5,2);
     graph.addEdgeUndirected(4,5);
     
-    // Printing graph
-    graph.printAdjMatrix();
+    // Assign directions
+    graph.assignDirections();
 
+    // Print the Adjacency Matrix after assign directions
+    graph.printAdjMatrix();
+    std::cout << graph;
 
 }
