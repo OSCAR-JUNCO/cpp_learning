@@ -16,26 +16,14 @@
 #include "graph.h"
 
 int main(){
-    Graph graph(6);
-    graph.addEdge(0,1);
-    graph.addEdgeUndirected(0,2);
-    graph.addEdgeUndirected(0,3);
-    graph.addEdge(0,5);
-    graph.addEdge(1,2);
-    graph.addEdge(1,3);
-    graph.addEdge(1,4);
-    graph.addEdge(2,3);
-    graph.addEdge(2,4);
-    graph.addEdge(3,4);
-    graph.addEdge(5,1);
-    graph.addEdge(5,2);
-    graph.addEdgeUndirected(4,5);
-    
-    // Assign directions
-    graph.assignDirections();
+    int x {1};
+    int y {1};
+    int m {5};
+    int n {5};
+    int steps {2};
 
-    // Print the Adjacency Matrix after assign directions
-    graph.printAdjMatrix();
-    std::cout << graph;
-
+    double probability = findProbability(x, y, m, n, steps);
+    std::cout << "The probability that in the next " << steps << " moves, we never cross the matrix boundaries";
+    std::cout << " of a " << m << "*" << n << " matrix, starting from the position (" << x << "," << y << ") is: ";
+    std::cout << probability << std::endl;
 }

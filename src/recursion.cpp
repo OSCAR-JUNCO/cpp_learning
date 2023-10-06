@@ -188,3 +188,37 @@ int helper_count_steps(int n, int steps) {
     }
     return helper_count_steps(n-1, ++steps);
 }
+
+// Check if (x,y) is a valid matrix coordinate
+bool isSafe(int x, int y, int m, int n) {
+    return (x >= 0 && x < m) && (y >= 0 && y < n);
+}
+
+double findProbability(int x, int y, int m, int n, int steps) {
+    // Base conditions - Boundaries crossed
+    if (!isSafe(x, y, m, n)) {
+        return 0.0;
+    }
+
+    // Number of steps reached
+    if (steps == 0) {
+        return 1.0;
+    }
+
+    // Initialize result
+    double probability {0.0};
+
+    // Move up
+    probability += findProbability(x, y+1, m, n, steps-1) * 0.25;
+
+    // Move left 
+    probability += findProbability(x-1, y, m, n, steps-1) * 0.25;
+
+    // Move down
+    probability += findProbability(x, y-1, m, n, steps-1) * 0.25;
+
+    // Move right
+    probability += findProbability(x+1, y, m, n, steps-1) * 0.25;
+
+    return probability;
+}

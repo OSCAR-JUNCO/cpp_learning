@@ -32,4 +32,8 @@ int helper_count_zeros(int n, int count);
 int count_steps(int n);
 int helper_count_steps(int n, int steps);
 
+bool isSafe(int x, int y, int m, int n);
+double findProbability(int x, int y, int m, int n, int steps);
+
+
 #endif // RECURSION_H
