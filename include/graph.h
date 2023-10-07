@@ -54,9 +54,13 @@ public:
 
     // Assign directions to undirected edges so that the directed graph remains acyclic
     void assignDirections();
+
+    // Find mother vertices of a graph
+    std::vector<int> findMotherVertices();
     
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
+    void DFS_util(int v, std::vector<bool>& visited);
     void topologicalSort_helper(int v, std::vector<bool>& visited, std::stack<int>& ts_stack);
     void updateAdjMatrix();
     void updateAdjList();

@@ -255,6 +255,57 @@ void Graph::assignDirections() {
     std::cout << "Directions assigned!" << std::endl;
 }
 
+std::vector<int> Graph::findMotherVertices() {
+    std::vector<int> motherVertices = {};
+
+    // Do DFS traversal (topological sort), last finished vertex is the first vertex of the topological sort
+    topologicalSort();
+
+    // If there exist a mother vertex (or vertices) in given
+    // graph, then v must be one (or one of them)
+
+    // Now check which of the first vertices in the Topological Sort are mother vertices
+    // if there are. We basically check if every vertex is reachable from that particular vertex v or not.
+
+    // Create the visited vector with all their values set to false and do
+    // DFS beginning from v 
+
+    for (int i = 0; i < _V; i++) {
+        int v = _topologicalSort[i];
+        std::vector<bool> visited(_V, false);
+
+        // Do DFS
+        DFS_util(v, visited);
+
+        // If all the nodes are visited, store the node in the motherVertices array
+        if (std::equal(visited.begin()+1, visited.end(), visited.begin())) {
+            motherVertices.push_back(v);
+        } else {
+            break;
+        }
+    }
+
+    return motherVertices;
+}
+
+void Graph::DFS_util(int v, std::vector<bool>& visited) {
+    // Mark the current node as visited
+    visited[v] = true;
+
+    // Recur for all the vertices adjacent to current vertex
+    Node* head = _adjList[v]->head;
+    Node* node = head->next;
+    while(node != nullptr) {
+        int adjacent = node->val;
+        // Visit adjacent node if not visited yet
+        if (!visited[adjacent]) {
+            DFS_util(adjacent, visited);
+        }
+        // Move to next 
+        node = node->next;
+    }
+}
+
 void Graph::updateAdjMatrix() {
     // Cleaning the Adjacency Matrix
     for (int i = 0; i < _V; ++i) {

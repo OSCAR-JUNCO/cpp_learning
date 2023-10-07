@@ -16,14 +16,31 @@
 #include "graph.h"
 
 int main(){
-    int x {1};
-    int y {1};
-    int m {5};
-    int n {5};
-    int steps {2};
+    Graph graph(7);
+    graph.addEdge(0,1);
+    graph.addEdge(0,2);
+    graph.addEdge(1,3);
+    graph.addEdge(4,1);
+    graph.addEdge(5,2);
+    graph.addEdge(5,6);
+    graph.addEdge(6,0);
+    graph.addEdge(6,4);
+    
+    // Print graph
+    std::cout << graph;
 
-    double probability = findProbability(x, y, m, n, steps);
-    std::cout << "The probability that in the next " << steps << " moves, we never cross the matrix boundaries";
-    std::cout << " of a " << m << "*" << n << " matrix, starting from the position (" << x << "," << y << ") is: ";
-    std::cout << probability << std::endl;
+    // Mother vertices
+    std::vector<int> motherVertices = graph.findMotherVertices();
+    int n = motherVertices.size();
+    if (n == 0) {
+        std::cout << "The graph has no mother vertices." << std::endl; 
+    } else {
+        std::cout << "The graph has " << n << " mother vertex(ices): ";
+        for (auto v: motherVertices) {
+            std::cout << v << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
 }
