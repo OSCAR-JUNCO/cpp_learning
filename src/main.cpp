@@ -16,5 +16,15 @@
 #include "graph.h"
 
 int main(){
-    jumpingNumbers(20);
+    Graph graph(4);
+    graph.addEdgeUndirected(0,1);
+    graph.addEdgeUndirected(0,2);
+    graph.addEdgeUndirected(1,3);
+    graph.addEdgeUndirected(1,2);
+    graph.addEdgeUndirected(2,3);
+
+    // Number of triangles
+    int triangles = graph.trianglesInGraph();
+    // Number of squares
+    std::cout << triangles << std::endl;
 }

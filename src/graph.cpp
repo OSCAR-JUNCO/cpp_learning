@@ -306,6 +306,13 @@ void Graph::DFS_util(int v, std::vector<bool>& visited) {
     }
 }
 
+// Find number of triangles in an undirected graph
+int Graph::trianglesInGraph() {
+    int triangles = polygonsInGraph(3);
+    std::cout << "The graph has " << triangles << " internal triangles." << std::endl;
+    return triangles;
+}
+
 void Graph::updateAdjMatrix() {
     // Cleaning the Adjacency Matrix
     for (int i = 0; i < _V; ++i) {
@@ -361,6 +368,20 @@ void Graph::updateAdjList() {
     } 
 }
 
+
+// Find polygons in an unconnected graph
+int Graph::polygonsInGraph(int sides) {
+
+    // Raise the matrix
+    std::vector<std::vector<int>> A = raiseMatrix(_adjMatrix, sides);
+
+    // Calculate number of polygons
+    int polygons = trace(A)/(sides*2);
+
+    return polygons;
+}
+
+
 std::ostream& operator<<(std::ostream& os, const Graph& graph){
     os << "Graph with " << graph._V << " vertices:" << std::endl;
     for (auto& list: graph._adjList) {
@@ -372,4 +393,45 @@ std::ostream& operator<<(std::ostream& os, const Graph& graph){
         os << "/" << std::endl;
     }
     return os;
+}
+
+
+// Functions to operate matrices
+std::vector<std::vector<int>> multiplyMatrices(std::vector<std::vector<int>>& A, std::vector<std::vector<int>>& B) {
+    int m = A.size();
+    int p = B[0].size(); 
+    std::vector<int> row(p);
+    std::vector<std::vector<int>> C(m, row);
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < p; j++) {
+            C[i][j] = 0;
+            for (int k = 0; k < p; k++) {
+                C[i][j] += A[i][k]*B[k][j];
+            }
+        }
+        
+    }
+    return C;
+}
+
+std::vector<std::vector<int>> raiseMatrix(std::vector<std::vector<int>>& A, int power) {
+    std::vector<std::vector<int>> C = A;
+    power--;
+    while (power > 0) {
+        C = multiplyMatrices(C, A);
+        power--;
+    }
+    return C;
+
+}
+
+int trace(std::vector<std::vector<int>>& A) {
+    int sum = 0;
+    int n = A.size();
+
+    for (int i = 0; i < n; ++i) {
+        sum += A[i][i];
+    }
+    return sum;
 }

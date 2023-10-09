@@ -57,17 +57,27 @@ public:
 
     // Find mother vertices of a graph
     std::vector<int> findMotherVertices();
-    
+
+    // Find number of triangles in an undirected graph
+    int trianglesInGraph();
+
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
     void DFS_util(int v, std::vector<bool>& visited);
     void topologicalSort_helper(int v, std::vector<bool>& visited, std::stack<int>& ts_stack);
     void updateAdjMatrix();
     void updateAdjList();
+    // Find polygons in an unconnected graph
+    int polygonsInGraph(int sides);
 
 };
 
 // Overload << operator for the Graph class
 std::ostream& operator<<(std::ostream& os, const Graph& graph);
+
+// Functions to operate matrices
+std::vector<std::vector<int>> multiplyMatrices(std::vector<std::vector<int>>& A, std::vector<std::vector<int>>& B);
+std::vector<std::vector<int>> raiseMatrix(std::vector<std::vector<int>>& A, int power);
+int trace(std::vector<std::vector<int>>& A);
 
 #endif // GRAPH_H
