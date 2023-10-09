@@ -30,4 +30,7 @@ int evalRPN(vector<string>& tokens);
 bool is_adjacent(std::string& first, std::string& second);
 int shortestChainLen(std::string& start, std::string& target, set<std::string>& D);
 
+void BFS(int x, int start);
+void jumpingNumbers(int x);
+
 #endif

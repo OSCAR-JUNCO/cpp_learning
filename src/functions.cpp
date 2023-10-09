@@ -309,3 +309,48 @@ int shortestChainLen(std::string& start, std::string& target, set<std::string>& 
     
 }
 
+// BFS starting from 'start'
+void BFS(int x, int num) {
+    // Create a queue and enqueue 'start'
+    queue<int> bfs_queue;
+    bfs_queue.push(num);
+
+    // Do BFS starting form 'start'
+    while(!bfs_queue.empty()) {
+        num = bfs_queue.front();
+        bfs_queue.pop();
+
+        if (num <= x) {
+            // Print the jumping number
+            std::cout << num << " ";
+
+            // Get the last digit
+            int last_digit = num % 10;
+
+            // If last digit is 0, append next digit only
+            if (last_digit == 0) {
+                bfs_queue.push((num*10) + (last_digit+1));
+            
+            // If last digit is 0, append previous digit only
+            } else if (last_digit == 0) {
+                bfs_queue.push((num*10) + (last_digit-1));
+            
+            // If last digit is 1-8, append previous and next digit
+            } else {
+                bfs_queue.push((num*10) + (last_digit+1));
+                bfs_queue.push((num*10) + (last_digit-1));
+            }
+        }
+
+
+    }
+}
+
+void jumpingNumbers(int x) {
+    std::cout << "Jumping numbers starting from " << 0 << " to " << x << " :" << std::endl;
+    std::cout << 0 << " ";
+    for (int i = 1; i<=9 && i<=x; i++) {
+        BFS(x, i);
+    }
+    std::cout << std::endl;
+}
