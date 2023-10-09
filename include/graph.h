@@ -61,6 +61,9 @@ public:
     // Find number of triangles in an undirected graph
     int trianglesInGraph();
 
+    // Check if a graph contains a cycle
+    bool isCyclic();
+
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
     void DFS_util(int v, std::vector<bool>& visited);
@@ -69,6 +72,8 @@ private:
     void updateAdjList();
     // Find polygons in an unconnected graph
     int polygonsInGraph(int sides);
+    // DFS cycle detection
+    bool isCyclic_util(int v, std::vector<bool>& visited, std::vector<bool>& recStack);
 
 };
 

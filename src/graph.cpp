@@ -313,6 +313,21 @@ int Graph::trianglesInGraph() {
     return triangles;
 }
 
+// Check if a graph contains a cycle
+bool Graph::isCyclic() {
+    std::vector<bool> visited(_V, false);
+    std::vector<bool> recStack(_V, false);
+    
+    // Call the recursive helper function to detect cycle    
+    for (int i = 0; i < _V; i++) {
+        if (isCyclic_util(i, visited, recStack)) {
+            return true;
+        }
+    }
+
+    return false; 
+}
+
 void Graph::updateAdjMatrix() {
     // Cleaning the Adjacency Matrix
     for (int i = 0; i < _V; ++i) {
@@ -379,6 +394,30 @@ int Graph::polygonsInGraph(int sides) {
     int polygons = trace(A)/(sides*2);
 
     return polygons;
+}
+
+
+// DFS cycle detection
+bool Graph::isCyclic_util(int v, std::vector<bool>& visited, std::vector<bool>& recStack) {
+    // First if to consider unconnected graphs
+    if(!visited[v]) {
+        visited[v] = true;
+        recStack[v] = true;
+
+        Node* head = _adjList[v]->head;
+        Node* node = head->next;
+        while (node != nullptr) {
+            int neighbour = node->val;
+            if (!visited[neighbour] && isCyclic_util(neighbour, visited, recStack)) {
+                return true;
+            } else if (recStack[neighbour]) {
+                return true; 
+            }
+            node = node->next;
+        } 
+    }
+    recStack[v] = false;
+    return false;
 }
 
 
