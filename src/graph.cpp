@@ -328,6 +328,32 @@ bool Graph::isCyclic() {
     return false; 
 }
 
+bool Graph::isCyclicUndirected() {
+    // Creating _V subsets 
+    std::vector<int> parents(_V, -1);
+
+    // Iterate through all the edges of the graph, _adjMatrix, find subset of both
+    // edge vertices, if both subsets are the same, then there is a cycle
+    for (int i = 0; i < _V; i++)
+    {
+        for (int j = 0; j < _V; j++)
+        {
+            // Only iterate the
+            if (_adjMatrix[i][j] == 1 && j > i) { 
+                int x_set = find(parents, i);
+                int y_set = find(parents, j);
+                if (x_set == y_set) {
+                    return true;
+                } else {
+                    subset_union(parents, x_set, y_set);
+                }
+            }
+        } 
+    }
+    return false;
+    
+}
+
 void Graph::updateAdjMatrix() {
     // Cleaning the Adjacency Matrix
     for (int i = 0; i < _V; ++i) {
@@ -473,4 +499,18 @@ int trace(std::vector<std::vector<int>>& A) {
         sum += A[i][i];
     }
     return sum;
+}
+
+// Functions to work with sets
+int find(std::vector<int>& parents, int v) {
+    if (parents[v] == -1) {
+        return v;
+    }
+    return find(parents, parents[v]);
+}
+
+void subset_union(std::vector<int>& parents, int x, int y) {
+    int x_set = find(parents, x);
+    int y_set = find(parents, y);
+    parents[x_set] = y_set;
 }

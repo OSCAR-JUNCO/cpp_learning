@@ -63,6 +63,7 @@ public:
 
     // Check if a graph contains a cycle
     bool isCyclic();
+    bool isCyclicUndirected();
 
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
@@ -84,5 +85,9 @@ std::ostream& operator<<(std::ostream& os, const Graph& graph);
 std::vector<std::vector<int>> multiplyMatrices(std::vector<std::vector<int>>& A, std::vector<std::vector<int>>& B);
 std::vector<std::vector<int>> raiseMatrix(std::vector<std::vector<int>>& A, int power);
 int trace(std::vector<std::vector<int>>& A);
+
+// Functions to work with sets
+int find(std::vector<int>& parents, int v);
+void subset_union(std::vector<int>& parents, int x, int y);
 
 #endif // GRAPH_H

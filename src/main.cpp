@@ -15,17 +15,18 @@
 #include "leetcode.h"
 #include "graph.h"
 
-int main(){
-    Graph graph(4);
-    graph.addEdge(0,1);
-    graph.addEdge(0,2);
-    graph.addEdge(1,2);
-    graph.addEdge(2,0);
-    graph.addEdge(2,3);
-    graph.addEdge(3,3);
+int main() {
+    Graph graph(5);
+    graph.addEdgeUndirected(0,1);
+    graph.addEdgeUndirected(0,2);
+    graph.addEdgeUndirected(1,3);
+    graph.addEdgeUndirected(1,4);
+    graph.addEdgeUndirected(3,4);
 
-    // Check if the graph is cyclic
-    bool is_cyclic = graph.isCyclic();
+    graph.printAdjMatrix();
+
+    // Check if an undirected graph is cyclic
+    bool is_cyclic = graph.isCyclicUndirected();
 
     std::string cyclic = "IS";
     if (!is_cyclic) {
