@@ -21,7 +21,7 @@ int main() {
     graph.addEdgeUndirected(0,2);
     graph.addEdgeUndirected(2,3);
     graph.addEdgeUndirected(2,4);
-    graph.addEdgeUndirected(3,4);
+    //graph.addEdgeUndirected(3,4);
 
     graph.printAdjMatrix();
 
