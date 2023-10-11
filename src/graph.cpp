@@ -328,6 +328,51 @@ bool Graph::isCyclic() {
     return false; 
 }
 
+bool Graph::isCyclicUndirected() {
+    // Creating _V subsets 
+    std::vector<int> parents(_V, -1);
+
+    // Iterate through all the edges of the graph, _adjMatrix, find subset of both
+    // edge vertices, if both subsets are the same, then there is a cycle
+    for (int i = 0; i < _V; i++)
+    {
+        for (int j = 0; j < _V; j++)
+        {
+            // Only iterate the
+            if (_adjMatrix[i][j] == 1 && j > i) { 
+                int x_set = find(parents, i);
+                int y_set = find(parents, j);
+                if (x_set == y_set) {
+                    return true;
+                } else {
+                    subset_union(parents, x_set, y_set);
+                }
+            }
+        } 
+    }
+    return false;
+    
+}
+
+bool Graph::isCyclicUndirectedDFS() {
+    // Visited array
+    std::vector<bool> visited(_V, false);
+
+    // Iterate through all the neighbors
+    for (int i = 0; i < _V; i++)
+    {
+        // Take into account unconnected graphs
+        if (!visited[i]) {
+            // Parent for node '0' is '-1'
+            if (isCyclicUndirectedDFS_util(i, visited, -1)) {
+                return true;
+            }
+        }
+    }
+    return false;
+    
+}
+
 void Graph::updateAdjMatrix() {
     // Cleaning the Adjacency Matrix
     for (int i = 0; i < _V; ++i) {
@@ -421,6 +466,29 @@ bool Graph::isCyclic_util(int v, std::vector<bool>& visited, std::vector<bool>& 
 }
 
 
+bool Graph::isCyclicUndirectedDFS_util(int v, std::vector<bool>& visited, int parent) {
+    // Mark node as visited
+    visited[v] = true;
+
+    Node* head = _adjList[v]->head;
+    Node* node = head->next;
+    while(node != nullptr) {
+        int value = node->val;
+        // If an adjacent is not visited, then recur for that adjacent node
+        if (!visited[value]) {
+            if (isCyclicUndirectedDFS_util(value, visited, v)) {
+                return true;
+            }
+        }
+        // If an adjacent is visited and not parent of current vertex, then we detect a cycle
+        else if (value != parent) {
+            return true;
+        }
+        node = node->next;
+    }
+    return false;
+}
+
 std::ostream& operator<<(std::ostream& os, const Graph& graph){
     os << "Graph with " << graph._V << " vertices:" << std::endl;
     for (auto& list: graph._adjList) {
@@ -473,4 +541,18 @@ int trace(std::vector<std::vector<int>>& A) {
         sum += A[i][i];
     }
     return sum;
+}
+
+// Functions to work with sets
+int find(std::vector<int>& parents, int v) {
+    if (parents[v] == -1) {
+        return v;
+    }
+    return find(parents, parents[v]);
+}
+
+void subset_union(std::vector<int>& parents, int x, int y) {
+    int x_set = find(parents, x);
+    int y_set = find(parents, y);
+    parents[x_set] = y_set;
 }
