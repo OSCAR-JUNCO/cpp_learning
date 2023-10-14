@@ -73,10 +73,14 @@ public:
     bool isCyclicUndirectedDFS();
     bool isCyclicDirected_colors();
 
+    // Find the SCC (Strong connected components)
+    std::vector<std::vector<int>> findSCC();
+
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
     void DFS_util(int v, std::vector<bool>& visited);
     bool DFS_colors_util(int v, std::vector<Color>& color);
+    void DFS_scc_util(int v, std::vector<bool>& visited, std::vector<int>& scc);
     void topologicalSort_helper(int v, std::vector<bool>& visited, std::stack<int>& ts_stack);
     void updateAdjMatrix();
     void updateAdjList();
@@ -95,6 +99,7 @@ std::ostream& operator<<(std::ostream& os, const Graph& graph);
 std::vector<std::vector<int>> multiplyMatrices(std::vector<std::vector<int>>& A, std::vector<std::vector<int>>& B);
 std::vector<std::vector<int>> raiseMatrix(std::vector<std::vector<int>>& A, int power);
 int trace(std::vector<std::vector<int>>& A);
+std::vector<std::vector<int>> getTranspose(const std::vector<std::vector<int>>& A);
 
 // Functions to work with sets
 int find(std::vector<int>& parents, int v);

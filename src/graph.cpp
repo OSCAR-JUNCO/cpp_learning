@@ -373,7 +373,6 @@ bool Graph::isCyclicUndirectedDFS() {
     
 }
 
-
 bool Graph::isCyclicDirected_colors() {
     // Create the vector of colors
     std::vector<Color> color(_V, WHITE);
@@ -414,6 +413,71 @@ bool Graph::DFS_colors_util(int v, std::vector<Color>& color) {
     color[v] = BLACK;
 
     return false;
+}
+
+// Find the SCC (Strong connected components)
+std::vector<std::vector<int>> Graph::findSCC() {
+    // Create the output vector
+    std::vector<std::vector<int>> scc;    
+
+    // Create the visited array
+    std::vector<bool> visited(_V, false);
+
+    // 1. Create an empty stack
+    std::stack<int> scc_stack;
+
+    // 2. Do DFS for each vertex to fill the stack
+    for (int i = 0; i < _V; i++) {
+        if (!visited[i]) {
+            topologicalSort_helper(i, visited, scc_stack);
+        }
+    }
+
+    // 3. Create a transposed graph from the current one
+    Graph gt(*this);
+    std::vector<std::vector<int>> adjMatrix_transposed = getTranspose(gt._adjMatrix);
+    gt._adjMatrix = adjMatrix_transposed;
+    gt.updateAdjList();
+
+    // 4. Pop one by one the vertices
+    for (int i = 0; i < _V; i++) {
+        visited[i] = false;
+    }
+    
+    while (!scc_stack.empty()) {
+        int v = scc_stack.top();
+        scc_stack.pop();
+
+        // Create a vector to store the vertices of a single scc
+        std::vector<int> single_scc;
+
+        if (!visited[v]) {
+            gt.DFS_scc_util(v, visited, single_scc);
+        }
+        if (!single_scc.empty())
+            scc.push_back(single_scc);
+        
+    } 
+    return scc;
+}
+
+void Graph::DFS_scc_util(int v, std::vector<bool>& visited, std::vector<int>& scc) {
+    // Mark the vertex as visited
+    visited[v] = true;
+
+    // Add the visited vertex to the Strong Connected Component
+    scc.push_back(v);
+
+    // Recur for all the adjacent vertices
+    Node* head = _adjList[v]->head;
+    Node* node = head->next;
+    while(node != nullptr) {
+        int adjacent = node->val;
+        if (!visited[adjacent]) {
+            DFS_scc_util(adjacent, visited, scc);
+        }
+        node = node->next;
+    }
 }
 
 void Graph::updateAdjMatrix() {
@@ -584,6 +648,25 @@ int trace(std::vector<std::vector<int>>& A) {
         sum += A[i][i];
     }
     return sum;
+}
+
+std::vector<std::vector<int>> getTranspose(const std::vector<std::vector<int>>& A) {
+    int n = A.size();
+    int m = A[0].size();
+    std::vector<int> row(n);
+    std::vector<std::vector<int>> ans(m, row);
+
+    // Recur all the A matrix
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            ans[j][i] = 0;
+            if (A[i][j] == 1) {
+                ans[j][i] = 1;
+            }
+        }
+    }
+     
+    return ans;    
 }
 
 // Functions to work with sets
