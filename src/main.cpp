@@ -17,16 +17,18 @@
 
 int main() {
     Graph graph(5);
-    graph.addEdgeUndirected(0,1);
-    graph.addEdgeUndirected(0,2);
-    graph.addEdgeUndirected(2,3);
-    graph.addEdgeUndirected(2,4);
-    //graph.addEdgeUndirected(3,4);
+    graph.addEdge(0,1);
+    graph.addEdge(0,3);
+    graph.addEdge(1,2);
+    graph.addEdge(1,3);
+    graph.addEdge(3,0);
+    graph.addEdge(3,4);
+    graph.addEdge(4,4);
 
     graph.printAdjMatrix();
 
-    // Check if an undirected graph is cyclic
-    bool is_cyclic = graph.isCyclicUndirectedDFS();
+    // Check if an undirected graph is cyclic using colors
+    bool is_cyclic = graph.isCyclicDirected_colors();
 
     std::string cyclic = "IS";
     if (!is_cyclic) {

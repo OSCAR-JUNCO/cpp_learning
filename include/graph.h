@@ -15,6 +15,12 @@ struct AdjList {
     struct Node* head;
 };
 
+enum Color {
+    WHITE, // 0
+    GRAY,  // 1
+    BLACK  // 2
+};
+
 class Graph {
     int _timer;
     std::vector<int> _inTime;
@@ -65,10 +71,12 @@ public:
     bool isCyclic();
     bool isCyclicUndirected();
     bool isCyclicUndirectedDFS();
+    bool isCyclicDirected_colors();
 
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
     void DFS_util(int v, std::vector<bool>& visited);
+    bool DFS_colors_util(int v, std::vector<Color>& color);
     void topologicalSort_helper(int v, std::vector<bool>& visited, std::stack<int>& ts_stack);
     void updateAdjMatrix();
     void updateAdjList();

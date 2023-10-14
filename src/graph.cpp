@@ -373,6 +373,49 @@ bool Graph::isCyclicUndirectedDFS() {
     
 }
 
+
+bool Graph::isCyclicDirected_colors() {
+    // Create the vector of colors
+    std::vector<Color> color(_V, WHITE);
+
+    // Do DFS beginning with all the vertices
+    for (int i = 0; i < _V; i++)
+    {
+        if (color[i] == WHITE) {
+            if (DFS_colors_util(i, color)) {
+                return true;
+            }
+        }
+    }
+    return false;    
+}
+
+bool Graph::DFS_colors_util(int v, std::vector<Color>& color) {
+    // Mark vertex as beeing visited
+    color[v] = GRAY;
+
+    // Visit the adjacent vertices
+    Node* head = _adjList[v]->head;
+    Node* adjacent = head->next;
+    while(adjacent != nullptr) {
+        int adj_val = adjacent->val;
+
+        // If the adjacent is not visited and there is a back edge in the subgraph 
+        // rooted by that adjacent
+        if (color[adj_val] == WHITE && DFS_colors_util(adj_val, color)) {
+            return true;
+        // If there is a back edge
+        } else if (color[adj_val] == GRAY) {
+            return true;
+        }
+        adjacent = adjacent->next;
+    }
+    // Mark vertex as visited after visiting all its adjacent nodes
+    color[v] = BLACK;
+
+    return false;
+}
+
 void Graph::updateAdjMatrix() {
     // Cleaning the Adjacency Matrix
     for (int i = 0; i < _V; ++i) {
