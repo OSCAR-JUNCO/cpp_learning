@@ -126,6 +126,41 @@ void Graph::DFS_helper(int v, std::vector<bool>& visited){
     _outTime[v] = _timer;
 }
 
+void Graph::DFS_iterative(int v) {
+    std::cout << "Iterative DFS: ";
+
+    // Created the visited vector
+    std::vector<int> visited(_V, false);
+
+    // Create a stack for DFS
+    std::stack<int> dfs_stack;
+
+    // Push source into the stack
+    dfs_stack.push(v);
+
+    // Push the source vertex into the stack
+    while(!dfs_stack.empty()) {
+        // Print and pop the current vertex
+        int current = dfs_stack.top();
+        dfs_stack.pop();
+
+        // Mark as visited the current node
+        visited[current] = true;
+        std::cout << current << " ";
+
+
+        Node* head = _adjList[current]->head;
+        Node* adjacent = head->next;
+        while(adjacent != nullptr) {
+            int adjVal = adjacent->val;
+            if (!visited[adjVal]) {
+                dfs_stack.push(adjVal);
+            }
+            adjacent = adjacent->next;
+        } 
+    }
+    std::cout << std::endl;
+}
 
 void Graph::topologicalSort() {
     std::cout << "Topological sort:" << std::endl;

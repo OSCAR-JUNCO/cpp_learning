@@ -48,6 +48,7 @@ public:
 
     // Depth-First Traversal
     void DFS(int v);
+    void DFS_iterative(int v);
 
     // Topological sort
     void topologicalSort();
