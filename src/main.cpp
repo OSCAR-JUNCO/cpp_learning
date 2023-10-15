@@ -17,16 +17,19 @@
 
 int main() {
     Graph graph(5);
-    graph.addEdge(0,2);
-    graph.addEdge(0,3);
-    graph.addEdge(1,0);
-    graph.addEdge(2,1);
-    graph.addEdge(3,4);
-    graph.addEdge(4,0);
+    graph.addEdgeUndirected(0,1);
+    graph.addEdgeUndirected(0,2);
+    graph.addEdgeUndirected(0,3);
+    graph.addEdgeUndirected(1,2);
+    graph.addEdgeUndirected(3,4);
 
     graph.printAdjMatrix();
 
-    // Print the DFS iterative
-    graph.DFS_iterative(0);
+    // Check if the graph is a tree
+    std::string tree = "IS";
+    if (!graph.isTree()) {
+        tree = "IS NOT";
+    }
 
+    std::cout << "The graph " << tree << " a tree." << std::endl;
 }

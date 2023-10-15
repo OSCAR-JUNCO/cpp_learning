@@ -77,6 +77,10 @@ public:
     // Find the SCC (Strong connected components)
     std::vector<std::vector<int>> findSCC();
 
+    // Check if an undirected graph is a tree
+    bool isTree();
+    bool isConnected();
+
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
     void DFS_util(int v, std::vector<bool>& visited);

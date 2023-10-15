@@ -496,6 +496,35 @@ std::vector<std::vector<int>> Graph::findSCC() {
     return scc;
 }
 
+// Check if an undirected graph is a tree
+bool Graph::isTree() {
+    // An undirected graph is a tree if:
+    // - There is no cycle
+    // - The graph is connected
+
+    return (!isCyclicUndirected() && isConnected());
+}
+
+bool Graph::isConnected() {
+    // Create the visited array
+    std::vector<bool> visited(_V, false);
+
+    // Check if all the nodes are reachable from the source vertex
+    // If all nodes are reached from 0, it means that all the nodes are reachable from every node as 
+    // the graph is undirected
+    DFS_util(0, visited);
+
+    // If there is one vertex not visited return false
+    bool hasFalse = std::any_of(visited.begin(), visited.end(), [](bool element) {
+        return !element; // Check if the element is false
+    });
+
+    if (hasFalse) {
+        return false;
+    }
+    return true;    
+}
+
 void Graph::DFS_scc_util(int v, std::vector<bool>& visited, std::vector<int>& scc) {
     // Mark the vertex as visited
     visited[v] = true;
