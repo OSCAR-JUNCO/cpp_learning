@@ -16,20 +16,20 @@
 #include "graph.h"
 
 int main() {
-    Graph graph(5);
+    Graph graph(6);
     graph.addEdgeUndirected(0,1);
-    graph.addEdgeUndirected(0,2);
-    graph.addEdgeUndirected(0,3);
     graph.addEdgeUndirected(1,2);
+    graph.addEdgeUndirected(1,5);
+    graph.addEdgeUndirected(2,3);
     graph.addEdgeUndirected(3,4);
+    graph.addEdgeUndirected(3,5);
 
     graph.printAdjMatrix();
 
-    // Check if the graph is a tree
-    std::string tree = "IS";
-    if (!graph.isTree()) {
-        tree = "IS NOT";
+    // Find the bridges of the edge
+    std::vector<std::pair<int, int>> bridges = graph.findBridges();
+    std::cout << "The graph has " << bridges.size() << " bridges: " << std::endl;
+    for (auto& bridge: bridges) {
+        std::cout << bridge.first << "->" << bridge.second << std::endl;
     }
-
-    std::cout << "The graph " << tree << " a tree." << std::endl;
 }

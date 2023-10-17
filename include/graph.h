@@ -81,6 +81,9 @@ public:
     bool isTree();
     bool isConnected();
 
+    // Find the bridge edges in a graph
+    std::vector<std::pair<int, int>> findBridges();
+
 private:
     void DFS_helper(int v, std::vector<bool>& visited);
     void DFS_util(int v, std::vector<bool>& visited);
@@ -94,6 +97,7 @@ private:
     // DFS cycle detection
     bool isCyclic_util(int v, std::vector<bool>& visited, std::vector<bool>& recStack);
     bool isCyclicUndirectedDFS_util(int v, std::vector<bool>& visited, int parent);
+    void findBridges_util(int u, std::vector<bool>& visited, std::vector<int>& discovery, std::vector<int>& low, std::vector<int>& parent, std::vector<std::pair<int, int>>& bridges);
 
 };
 

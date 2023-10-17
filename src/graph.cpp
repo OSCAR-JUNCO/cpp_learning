@@ -613,6 +613,68 @@ int Graph::polygonsInGraph(int sides) {
 }
 
 
+// Find the bridge edges in a graph
+std::vector<std::pair<int, int>> Graph::findBridges(){
+    // Create the ans vector
+    std::vector<std::pair<int, int>> bridges;
+
+    // Create the vectors
+    std::vector<bool> visited(_V, false);
+    std::vector<int> discovery(_V, 0);
+    std::vector<int> low(_V, 0);
+    std::vector<int> parent(_V, -1);
+    
+    // Do the DFS traversal
+    for (int i = 0; i < _V; i++)
+    {
+        if (!visited[i]) {
+            findBridges_util(i, visited, discovery, low, parent, bridges);
+        }
+    }
+    
+    return bridges;
+}
+
+void Graph::findBridges_util(int u, std::vector<bool>& visited, std::vector<int>& discovery, std::vector<int>& low, std::vector<int>& parent, std::vector<std::pair<int, int>>& bridges){
+    // Mark node as visited
+    visited[u] = true;
+
+    // Create a static variable to assign the discovery and low time
+    static int time = 0;
+
+    // Assign the discovery and low time
+    discovery[u] = low[u] = ++time;
+
+    Node* head = _adjList[u]->head;
+    Node* adjacent = head->next;
+    while (adjacent != nullptr) {
+        int v = adjacent->val;
+        
+        if (!visited[v]) {
+            // Recursive call, assign the parent
+            parent[v] = u;
+            findBridges_util(v, visited, discovery, low, parent, bridges);
+
+            // Assign min low to the current vertex
+            low[u] = std::min(low[u], low[v]);
+
+            // Compare discovery[u] vs low[v]
+            if (discovery[u] < low[v]) {
+                // Bridge found
+                std::pair<int, int> bridge;
+                bridge.first = u;
+                bridge.second = v;
+                bridges.push_back(bridge);
+            }
+        } else if (v != parent[u]) {
+            low[u] = std::min(low[u], discovery[v]);
+        }
+
+        // Next adjacent
+        adjacent = adjacent->next;
+    }
+}
+
 // DFS cycle detection
 bool Graph::isCyclic_util(int v, std::vector<bool>& visited, std::vector<bool>& recStack) {
     // First if to consider unconnected graphs
